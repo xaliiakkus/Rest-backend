@@ -11,7 +11,7 @@ class ProductFilter {
                 $options : "i"
             }
         } : {}
-        this.query = this.query.find({ ...keyword })
+        this.query = this.query.find({ ...this.keyword })
         return this;
     }
     filter() {
