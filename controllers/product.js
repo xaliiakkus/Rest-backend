@@ -12,7 +12,7 @@ const adminProduct = async (req, res, next) => {
 }
 
 const aggregateCategories = async (req, res) => {
-    const categories = await Product.distinct.res.body('category');
+    const categories = await Product.distinct('category');
     
         res.status(200).json({
             categories
