@@ -11,6 +11,14 @@ const adminProduct = async (req, res, next) => {
     })
 }
 
+const aggregateCategories = async (req, res) => {
+    const categories = await Product.distinct.res.body('category');
+    
+        res.status(200).json({
+            categories
+        });
+
+};
 
 const allProducts = async (req, res) => {
     const resultPerPage = 10;
@@ -117,5 +125,5 @@ const createReviews = async (req, res, next) =>{
 module.exports = {
     allProducts, detailProducts,
     createProducts, deleteProducts, updateProducts,
-    createReviews,adminProduct
+    createReviews,adminProduct,aggregateCategories
 };
