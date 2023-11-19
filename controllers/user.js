@@ -10,8 +10,7 @@ const register = async (req, res) => {
     const avatar = await cloudinary.uploader.upload(req.body.avatar, {
         folder: "avatars",
         width: 100,
-        height: 150,
-        crop: 'cover'
+        crop: 'scale'
     });
     const { name, email, password } = req.body;
     const user = await User.findOne({ email })

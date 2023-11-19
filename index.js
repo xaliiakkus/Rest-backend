@@ -16,9 +16,9 @@ app.use(cors())
 
           
 cloudinary.config({ 
-  cloud_name: process.env.CLOUD_NAME, 
-    api_key: process.env.API_KEY, 
-  api_secret: process.env.SECRET_TOKEN 
+  cloud_name: 'dw9exccts', 
+  api_key: '225732998615452', 
+  api_secret: '***************************' 
 });
 
 app.use(bodyparser.json({ limit: '30mb', extended: true }));
