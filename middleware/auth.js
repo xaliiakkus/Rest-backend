@@ -1,14 +1,14 @@
 const jwt = require("jsonwebtoken")
 const User = require("../models/user")
 const authorizationMid = async (req, res, next) => {
-    const token = req.cookies;
+    const token = req.headers.authorization.split("")[1];
 
     if (!token) {
         return res.status(500).json({
             message: "Unauthorized"
         })
     }
-    const decodedData = jwt.verify(token, process.env.SECRET_TOKEN)
+    const decodedData = jwt.verify(token, process.env.JWT_SECRET)
     if (!decodedData) {
         return res.status(500).json({ message: "not Token " })
     }
