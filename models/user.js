@@ -12,7 +12,7 @@ const UserSchema = mongoose.Schema({
         unique: true
     },
     password: {
-        type: Number,
+        type: String,
         minLength: 6
     },
     avatar: {
