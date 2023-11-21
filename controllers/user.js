@@ -191,10 +191,14 @@ const resetPassword = async (req, res) => {
 }
 
 const userDetails = async (req, res, next) => {
-    const user = await User.findById(req.user.id)
-    res.status(200).json({
-        user
-    })
+ try {
+       const user = await User.findById(req.user.id)
+       res.status(200).json({
+           user
+       })
+ } catch (error) {
+    res.status(error).error(404).json({ errors: [{ msg: 'User Details Not Found' }] });
+ }
 }
 
 module.exports = {
