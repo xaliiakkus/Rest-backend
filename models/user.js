@@ -13,17 +13,14 @@ const UserSchema = mongoose.Schema({
     },
     password: {
         type: Number,
-        required: true,
         minLength: 6
     },
     avatar: {
         public_id: {
-            type: String,
-           
+            type: String
         },
         url: {
-            type: String,
-       
+            type: String
         }
     },
     role: {
