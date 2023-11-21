@@ -65,27 +65,33 @@ const register = async (req, res) => {
   };
 // login user
 const login = async (req, res) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) {
-        return res.status(404).json({ errors: [{ msg: 'Böyle bir kullanıcı bulunamadı' }] })
-    };
-    const comparePassword = await bcrypt.compare(password, user.password);
-    if (!comparePassword) { 
-        return res.status(404).json({ errors: [{ msg: 'Şifre yanlış' }] })
-    };
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' })
+    try {
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
 
-    const cookieOptions = {
-        httpOnly: true,
-        expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
+        if (!user) {
+            return res.status(404).json({ errors: [{ msg: 'Böyle bir kullanıcı bulunamadı' }] });
+        }
+
+        const comparePassword = await bcrypt.compare(password, user.password);
+
+        if (!comparePassword) {
+            return res.status(404).json({ errors: [{ msg: 'Şifre yanlış' }] });
+        }
+
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        const cookieOptions = {
+            httpOnly: true,
+            expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
+        };
+
+        res.status(200).cookie("token", token, cookieOptions).json({ user, token });
+    } catch (error) {
+        console.error("Error in login:", error);
+        res.status(500).json({ errors: [{ msg: 'Sunucu hatası' }] });
     }
-
-    res.status(200).cookie("token", token, cookieOptions).json(
-        user,
-        token
-    )
-}
+};
 // logout user
 const logout = async (req, res) => {
     const cookieOptions = {
