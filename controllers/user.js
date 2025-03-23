@@ -142,19 +142,21 @@ const resetPassword = async (req, res) => {
         res.status(500).json({ errors: [{ msg: 'Sunucu hatası' }] });
     }
 };
-
 const userDetails = async (req, res) => {
     try {
-        const user = await User.findById(req.user.id); // Token içinden alınmalı!
+        const user = await User.findById(req.user.id).select("-password");
+
         if (!user) {
-            return res.status(404).json({ message: 'Kullanıcı bulunamadı' });
+            return res.status(404).json({ message: "Kullanıcı bulunamadı" });
         }
-        res.status(200).json({ user });
+
+        res.json({ user });
     } catch (error) {
-        console.error('Error in userDetails:', error);
-        res.status(500).json({ errors: [{ msg: 'Sunucu hatası' }] });
+        console.error("Profil getirme hatası:", error);
+        res.status(500).json({ message: "Sunucu hatası" });
     }
 };
+
 
 module.exports = {
     register,
