@@ -8,7 +8,7 @@ const authorizationMid = async (req, res, next) => {
             message: "Unauthorized"
         })
     }
-    const decodedData = jwt.verify(token, 'patronizer')
+    const decodedData = jwt.verify(token, process.env.JWT_SECRET)
     if (!decodedData) {
         return res.status(500).json({ message: "not Token " })
     }

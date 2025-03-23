@@ -1,7 +1,6 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-
-const UserSchema = mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -13,14 +12,17 @@ const UserSchema = mongoose.Schema({
     },
     password: {
         type: String,
+        required: true,
         minLength: 6
     },
-    avatar: {
+    avatar: {  
         public_id: {
-            type: String
+            type: String,
+            default: null // Varsayılan olarak boş olabilir
         },
         url: {
-            type: String
+            type: String,
+            default: null // Varsayılan olarak boş olabilir
         }
     },
     role: {
@@ -28,11 +30,13 @@ const UserSchema = mongoose.Schema({
         default: "user",
     },
     resetPasswordToken: {
-        type: String
+        type: String,
+        default: undefined
     },
     resetPasswordExpire: {
-        type: Date
+        type: Date,
+        default: undefined
     }
-},{timetamps:true})
+}, { timestamps: true }); 
 
-module.exports = mongoose.model("User", UserSchema)
+module.exports = mongoose.model("User", UserSchema);

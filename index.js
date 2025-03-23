@@ -1,43 +1,38 @@
 const express = require('express');
 const cors = require('cors');
-const bodyparser = require('body-parser');
-const cookieparser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
-const db = require('./config/db.js');
-const product = require('./routes/product');
+const connectDB = require('./config/db.js');
 const cloudinary = require('cloudinary').v2;
-const user = require('./routes/user');
-
+const userRoutes = require('./routes/user');
+const productRoutes = require('./routes/product');
 
 dotenv.config();
 const app = express();
-app.use(cors())
 
+// CORS & Middleware
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(express.json({ limit: '30mb' }));
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-          
+// Cloudinary Config
 cloudinary.config({ 
-  cloud_name: 'daesl3nc6', 
-  api_key: '832495626472282', 
-  api_secret :'cloudinary://832495626472282:hEhWr8J1_HmdP8Iceix2nx1WNBQ@daesl3nc6'
-
-
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-app.use(bodyparser.json({ limit: '30mb', extended: true }));
-app.use(bodyparser.urlencoded({ limit: '30mb', extended: true }));
-app.use(cookieparser())
+// Database Connection
+connectDB();
 
-db();
+// Routes
+app.use('/api/users', userRoutes);
+app.use('/api/products', productRoutes);
 
-app.use('/', user);
-app.use('/', product);
+// Test Route
+app.get('/', (req, res) => res.status(200).json({ message: 'Server is running!' }));
 
-const PORT = process.env.PORT;
-
-
-app.get('/', (req, res) => {
-    res.status(200).json({message:'hello '})
-})
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
-    });
+// Start Server
+const PORT = process.env.PORT || 9000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
