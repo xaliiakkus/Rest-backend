@@ -4,7 +4,7 @@ curl -X POST "https://rest-backend-medz.onrender.com/api/users/register" \
      -d '{
            "name": "John Doe",
            "email": "johndoe@example.com",
-           "password": "34Patron47&"
+           "password": "2123213123&"
          }'
 
 
@@ -14,7 +14,7 @@ curl -X POST "https://rest-backend-medz.onrender.com/api/users/login" \
      -H "Content-Type: application/json" \
      -d '{
            "email": "johndoe@example.com",
-           "password": "34Patron47&"
+           "password": "123123123&"
          }'
 
 
@@ -23,6 +23,8 @@ profile
 
 curl -X GET "https://rest-backend-medz.onrender.com/api/users/me" \
      -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE"
-| [eniyicasinolar.xyz](https://eniyicasinolar.xyz) | En iyi casino siteleri, güvenilir bahis siteleri |
-| [denemebonus.fit](https://denemebonus.fit) | Deneme bonusu veren siteler, bonus rehberi |
-| [denemebonus.shop](https://denemebonus.shop) | Deneme bonusu kampanyaları, bonus çark |
+
+[eniyicasinolar.xyz](https://eniyicasinolar.xyz)** — En iyi casino siteleri ve güvenilir bahis siteleri listesi; lisans ve ödeme bilgileri
+[denemebonus.fit](https://denemebonus.fit)** — Deneme bonusu veren siteler rehberi; hoşgeldin bonusu karşılaştırması
+[denemebonus.shop](https://denemebonus.shop)** — Deneme bonusu kampanyaları ve bonus çark; güncel fırsatlar
+
